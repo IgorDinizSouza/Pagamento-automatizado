@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cobranca
+    username: postgres
+    password: 180395Az!
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+asaas:
+  url: https://sandbox.asaas.com/api/v3
+  token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OmI0YTIwMjllLWQyMWQtNDYyMi04MzZiLWU1ZjdiNmRiYWZjZTo6JGFhY2hfM2JkNDlmMmEtNDZiMy00YzgwLThiMmUtZWRmYTRmZmUyMGFk
