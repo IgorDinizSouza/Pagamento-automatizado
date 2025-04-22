@@ -6,6 +6,8 @@ public class EmpresaCadastroRequest {
     private String login;
     private String senha;
     private String asaasToken;
+    private String cpfCnpj;
+    private boolean periodoTeste; // true = 3 dias de teste, false = pagamento imediato
 
     public String getNome() {
         return nome;
@@ -45,5 +47,21 @@ public class EmpresaCadastroRequest {
 
     public void setAsaasToken(String asaasToken) {
         this.asaasToken = asaasToken;
+    }
+
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
+
+    public boolean isPeriodoTeste() {
+        return periodoTeste;
+    }
+
+    public void setPeriodoTeste(boolean periodoTeste) {
+        this.periodoTeste = periodoTeste;
     }
 }

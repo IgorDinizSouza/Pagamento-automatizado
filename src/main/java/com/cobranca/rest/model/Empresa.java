@@ -1,3 +1,4 @@
+
 package com.cobranca.rest.model;
 
 import jakarta.persistence.*;
@@ -36,6 +37,17 @@ public class Empresa {
 
     @Column(name = "assinatura_paga")
     private Boolean assinaturaPaga = false;
+
+    @Column(name = "cpf_cnpj", unique = true)
+    private String cpfCnpj;
+
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
 
     public String getAsaasCustomerId() {
         return asaasCustomerId;

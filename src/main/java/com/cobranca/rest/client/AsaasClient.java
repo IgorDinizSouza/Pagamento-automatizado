@@ -25,6 +25,8 @@ public interface AsaasClient {
     @GetMapping("/subscriptions/{id}")
     AsaasSubscriptionResponse consultarAssinatura(@PathVariable("id") String subscriptionId);
 
+    @PostMapping("/payments/{id}/cancel")
+    void cancelarPagamento(@PathVariable("id") String paymentId);
 
 
 }

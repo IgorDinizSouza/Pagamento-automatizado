@@ -60,6 +60,9 @@ public class CobrancaService {
                     .plusMonths(1)
                     .withDayOfMonth(assinatura.getDiaVencimento());
 
+            boolean jaExiste = cobrancaRepository.existsByAssinaturaIdAndDataVencimento(assinatura.getId(), dataVencimento);
+            if (jaExiste) continue;
+
             // 👉 Monta requisição de pagamento
             AsaasPaymentRequest pagamentoReq = new AsaasPaymentRequest();
             pagamentoReq.setCustomer(cliente.getAsaasCustomerId());
@@ -85,7 +88,7 @@ public class CobrancaService {
             cobranca.setValor(assinatura.getValor());
             cobranca.setStatus("PENDENTE");
             cobranca.setTipo(assinatura.getTipoPagamento());
-            cobranca.setCodigoPagamento(pagamentoResp.getPixQrCode());
+            cobranca.setCodigoPagamento(pagamentoResp.getId());
 
             cobrancaRepository.save(cobranca);
         }
@@ -102,14 +105,6 @@ public class CobrancaService {
         return cobrancaRepository.findById(cobrancaId).map(cobranca -> {
             cobranca.setStatus("PAGO");
             cobranca.setDataPagamento(LocalDate.now());
-            cobrancaRepository.save(cobranca);
-            return true;
-        }).orElse(false);
-    }
-
-    public boolean cancelarCobranca(Long cobrancaId) {
-        return cobrancaRepository.findById(cobrancaId).map(cobranca -> {
-            cobranca.setStatus("CANCELADO");
             cobrancaRepository.save(cobranca);
             return true;
         }).orElse(false);
@@ -201,6 +196,9 @@ public class CobrancaService {
                     .plusMonths(1)
                     .withDayOfMonth(assinatura.getDiaVencimento());
 
+            boolean jaExiste = cobrancaRepository.existsByAssinaturaIdAndDataVencimento(assinatura.getId(), dataVencimento);
+            if (jaExiste) continue;
+
             // ✅ Monta pagamento
             AsaasPaymentRequest pagamentoReq = new AsaasPaymentRequest();
             pagamentoReq.setCustomer(cliente.getAsaasCustomerId());
@@ -225,7 +223,7 @@ public class CobrancaService {
             cobranca.setValor(assinatura.getValor());
             cobranca.setStatus("PENDENTE");
             cobranca.setTipo(assinatura.getTipoPagamento());
-            cobranca.setCodigoPagamento(pagamentoResp.getPixQrCode());
+            cobranca.setCodigoPagamento(pagamentoResp.getId());
 
             cobrancaRepository.save(cobranca);
         }
@@ -251,6 +249,26 @@ public class CobrancaService {
             cobrancaRepository.save(cobranca);
             return cobranca.getStatus();
         });
+    }
+
+    public boolean cancelarCobranca(Long cobrancaId) {
+        return cobrancaRepository.findById(cobrancaId).map(cobranca -> {
+            try {
+                if (cobranca.getCodigoPagamento() != null && !cobranca.getCodigoPagamento().isBlank()) {
+                    // Cancela a cobrança no Asaas
+                    asaasClient.cancelarPagamento(cobranca.getCodigoPagamento());
+                }
+
+                // Atualiza o status local
+                cobranca.setStatus("CANCELADO");
+                cobrancaRepository.save(cobranca);
+                return true;
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }).orElse(false);
     }
 
 

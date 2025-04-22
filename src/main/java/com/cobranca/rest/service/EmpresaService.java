@@ -39,27 +39,31 @@ public class EmpresaService {
         empresa.setSenha(passwordEncoder.encode(request.getSenha()));
         empresa.setAsaasToken(request.getAsaasToken());
 
-        // Criar cliente no Asaas
         com.cobranca.rest.client.dto.AsaasCustomerRequest clienteReq = new com.cobranca.rest.client.dto.AsaasCustomerRequest();
         clienteReq.setName(request.getNome());
         clienteReq.setEmail(request.getEmail());
-        clienteReq.setPhone("989999999"); // ou você adiciona esse campo no request
-        clienteReq.setCpfCnpj("11144477735"); // idem
+        clienteReq.setPhone("989999999");
+        clienteReq.setCpfCnpj(request.getCpfCnpj());
 
         AsaasCustomerResponse clienteResp = asaasClient.criarCliente(clienteReq);
         empresa.setAsaasCustomerId(clienteResp.getId());
 
-        // Criar assinatura mensal
-        AsaasSubscriptionRequest subReq = new AsaasSubscriptionRequest();
-        subReq.setCustomer(clienteResp.getId());
-        subReq.setNextDueDate(LocalDate.now().plusDays(1).toString());
-        subReq.setValue(49.90);
-        subReq.setDescription("Assinatura mensal para uso do sistema");
+        AsaasPaymentRequest paymentReq = new AsaasPaymentRequest();
+        paymentReq.setCustomer(clienteResp.getId());
+        paymentReq.setBillingType("PIX");
+        paymentReq.setValue(49.90);
+        paymentReq.setDescription("Assinatura mensal da plataforma");
+        paymentReq.setDueDate(
+                request.isPeriodoTeste()
+                        ? LocalDate.now().plusDays(3).toString()
+                        : LocalDate.now().toString()
+        );
 
-        AsaasSubscriptionResponse subResp = asaasClient.criarAssinatura(subReq);
-        empresa.setAsaasSubscriptionId(subResp.getId());
+        AsaasPaymentResponse paymentResp = asaasClient.criarCobranca(paymentReq);
 
         empresa.setAtiva(false);
+        empresa.setAssinaturaPaga(false);
+        empresa.setVencimentoAssinatura(LocalDate.parse(paymentReq.getDueDate()));
 
         empresaRepository.save(empresa);
 
@@ -90,6 +94,9 @@ public class EmpresaService {
                     empresa.setAtiva(true);
                     empresa.setAssinaturaPaga(true);
                     empresa.setVencimentoAssinatura(LocalDate.parse(status.getNextDueDate()));
+                }else{
+                    empresa.setAtiva(false);
+                    empresa.setAssinaturaPaga(false);
                 }
 
             } catch (Exception e) {
