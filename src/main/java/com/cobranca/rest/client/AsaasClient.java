@@ -2,9 +2,7 @@ package com.cobranca.rest.client;
 
 
 import com.cobranca.rest.client.dto.AsaasCustomerRequest;
-import com.cobranca.rest.dto.AsaasCustomerResponse;
-import com.cobranca.rest.dto.AsaasPaymentRequest;
-import com.cobranca.rest.dto.AsaasPaymentResponse;
+import com.cobranca.rest.dto.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,5 +18,13 @@ public interface AsaasClient {
 
     @GetMapping("/payments/{id}")
     AsaasPaymentResponse consultarPagamento(@PathVariable("id") String paymentId);
+
+    @PostMapping(value = "/subscriptions", consumes = MediaType.APPLICATION_JSON_VALUE)
+    AsaasSubscriptionResponse criarAssinatura(@RequestBody AsaasSubscriptionRequest request);
+
+    @GetMapping("/subscriptions/{id}")
+    AsaasSubscriptionResponse consultarAssinatura(@PathVariable("id") String subscriptionId);
+
+
 
 }
