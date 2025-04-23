@@ -231,7 +231,6 @@ public class CobrancaService {
         return assinaturas.size();
     }
 
-
     public Optional<String> atualizarStatusCobranca(Long cobrancaId) {
         return cobrancaRepository.findById(cobrancaId).map(cobranca -> {
             String paymentId = cobranca.getCodigoPagamento();

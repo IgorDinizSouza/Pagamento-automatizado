@@ -24,8 +24,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: igor.diniz23@gmail.com              # altere aqui
-    password: nopainnogain21         # altere aqui
+    username: consultorialudovicense@gmail.com
+    password: 032218Mi!
     properties:
       mail:
         smtp:
@@ -34,5 +34,5 @@ spring:
             enable: true
 
 asaas:
-  url: https://sandbox.asaas.com/api/v3
-  token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OmI0YTIwMjllLWQyMWQtNDYyMi04MzZiLWU1ZjdiNmRiYWZjZTo6JGFhY2hfM2JkNDlmMmEtNDZiMy00YzgwLThiMmUtZWRmYTRmZmUyMGFk
+  url: https://www.asaas.com/api/v3
+  token: $aact_prod_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjAzNGI2MzMxLTMwNTMtNDcxNC04ZDBjLTBhMDJlNDNlMzEwMDo6JGFhY2hfZGQ3YjJhNjctNGFmZi00ZjA4LTkyZDQtMzk5OWU1ZjZlZjBk
