@@ -35,3 +35,9 @@ spring:
 asaas:
   url: https://www.asaas.com/api/v3
   token: ${TOKEN_ASAAS} # definido como variável
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.boot.autoconfigure.jdbc: DEBUG
