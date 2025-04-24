@@ -20,9 +20,15 @@ public class ApiApplication {
 	@Bean
 	public CommandLineRunner runner() {
 		return args -> {
-			System.out.println("💡 spring.datasource.url via System.getenv: " + System.getenv("DATABASE_URL"));
+			System.out.println("🔍 VARIÁVEIS DE AMBIENTE:");
+			System.getenv().forEach((k, v) -> {
+				if (k.toLowerCase().contains("spring") || k.toLowerCase().contains("db") || k.toLowerCase().contains("pg") || k.toLowerCase().contains("railway")) {
+					System.out.println(k + "=" + v);
+				}
+			});
 		};
 	}
+
 
 }
 
