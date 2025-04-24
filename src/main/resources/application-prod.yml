@@ -39,5 +39,5 @@ asaas:
 
 logging:
   level:
-    root: INFO
     org.springframework.boot.autoconfigure.jdbc: DEBUG
+    com.zaxxer.hikari: DEBUG
