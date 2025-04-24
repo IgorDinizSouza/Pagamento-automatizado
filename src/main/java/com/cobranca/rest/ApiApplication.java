@@ -20,6 +20,6 @@ public class ApiApplication {
 	@Bean
 	public CommandLineRunner runner(@Value("${spring.datasource.url:NOT_DEFINED}") String url) {
 		return args -> System.out.println("💡 DATABASE_URL RESOLVIDO: " + url);
-	}
+	} 
 }
 
