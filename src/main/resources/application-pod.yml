@@ -1,0 +1,37 @@
+server:
+  address: 0.0.0.0
+  port: ${PORT:8080} # Railway define automaticamente a porta
+
+spring:
+  datasource:
+    url: ${DATABASE_URL} # Railway injeta essa variável automaticamente
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME} # definido como variável
+    password: ${MAIL_PASSWORD} # definido como variável
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+asaas:
+  url: https://www.asaas.com/api/v3
+  token: ${TOKEN_ASAAS} # definido como variável
