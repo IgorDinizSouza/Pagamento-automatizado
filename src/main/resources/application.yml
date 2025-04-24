@@ -1,8 +1,11 @@
+
 server:
   address: 0.0.0.0
   port: 8080
 
 spring:
+  profiles:
+    active: prod
   datasource:
     url: jdbc:postgresql://localhost:5432/cobranca
     username: postgres
