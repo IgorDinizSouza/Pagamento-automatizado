@@ -4,6 +4,7 @@ server:
 
 spring:
   datasource:
+    url: jdbc:postgresql://trolley.proxy.rlwy.net:37266/cobranca?user=postgres&password=gJLvLLypbSJRlemetRvWNeEFuxRvkApX
     driver-class-name: org.postgresql.Driver
 
   jpa:
