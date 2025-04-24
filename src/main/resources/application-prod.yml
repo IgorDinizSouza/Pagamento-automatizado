@@ -4,7 +4,6 @@ server:
 
 spring:
   datasource:
-    url: ${DATABASE_URL} # Railway injeta essa variável automaticamente
     driver-class-name: org.postgresql.Driver
 
   jpa:
