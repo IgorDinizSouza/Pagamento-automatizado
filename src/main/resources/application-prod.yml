@@ -8,6 +8,10 @@ spring:
     username: postgres
     password: gJLvLLypbSJRlemetRvWNeEFuxRvkApX
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      idle-timeout: 10000
 
   jpa:
     hibernate:
@@ -41,5 +45,5 @@ asaas:
 
 logging:
   level:
-    org.springframework.boot.autoconfigure.jdbc: DEBUG
-    com.zaxxer.hikari: DEBUG
+    org.springframework.boot.autoconfigure.jdbc: INFO
+    com.zaxxer.hikari: INFO
