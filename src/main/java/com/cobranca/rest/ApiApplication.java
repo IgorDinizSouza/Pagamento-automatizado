@@ -16,19 +16,5 @@ public class ApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}
-
-	@Bean
-	public CommandLineRunner runner() {
-		return args -> {
-			System.out.println("🔍 VARIÁVEIS DE AMBIENTE:");
-			System.getenv().forEach((k, v) -> {
-				if (k.toLowerCase().contains("spring") || k.toLowerCase().contains("db") || k.toLowerCase().contains("pg") || k.toLowerCase().contains("railway")) {
-					System.out.println(k + "=" + v);
-				}
-			});
-		};
-	}
-
-
 }
 
